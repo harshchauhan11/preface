@@ -1,7 +1,6 @@
 <?php
 //        echo(json_encode(array('outcome' => true, 'message' => 'Success')));
 $dname = $_GET["name"];
-echo $dname;
 
 $servername = "localhost";
 $username = "admine8NgaEg";

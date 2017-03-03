@@ -30,7 +30,7 @@ mysql_select_db("preface");
 
 $query = mysql_query("INSERT INTO devices(dname,dtype,dpin,dstatus) values('".$dname."','".$dtype."','".$dpin."','".$dstatus."') ");
 if($query){
-	echo "Device name:".$dname." has been registered successfully !";
+	echo "Device name:<b>".$dname."</b> has been registered successfully ! Check full list of devices <a href='show.php'>here</a>.";
 }
 else{
 	echo "Registering device failed !";

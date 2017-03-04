@@ -8,8 +8,8 @@ else
 	$dstatus2 = "on";
 
 $servername = "localhost";
-$username = "admine8NgaEg";
-$password = "P5vVcfKb4Ixz";
+$username = "adminHuTkSSb";
+$password = "GMgvKYB5qknf";
 $dbname = "preface";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

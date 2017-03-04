@@ -1,7 +1,7 @@
 <?php
 //        echo(json_encode(array('outcome' => true, 'message' => 'Success')));
-$dname = $_POST["name"];
-$dstatus = $_POST["up"];
+$dname = $_GET["name"];
+$dstatus = $_GET["up"];
 if($dstatus == "on")
 	$dstatus2 = "off";
 else

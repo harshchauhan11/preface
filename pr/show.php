@@ -2,7 +2,7 @@
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en">
 <head>
-	<title>Minnie2</title>
+	<title>Minnie</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css' />
@@ -17,10 +17,16 @@
 </head>
 
 <body>
+<div class="row large-6">
+	<div class="large-12 small-12 columns text-center">
+		<span id="respmsg" class="label secondary"></span>
+	</div>
+</div>
+<br/>
 <?php
 $servername = "localhost";
-$username = "adminHuTkSSb";
-$password = "GMgvKYB5qknf";
+$username = "admine8NgaEg";
+$password = "P5vVcfKb4Ixz";
 $dbname = "preface";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,11 +42,11 @@ if ($result->num_rows > 0) {
 ?>
 <div class="row large-6">
 	<div class="large-4 small-3 columns">
-	      <label class="text-right middle"><big><b><?php= $row["dname"] ?></b></big></label>
+	      <label id="did" class="text-right middle"><big><b><?php echo $row["dname"]; ?></b></big></label>
 	</div>
-	<div class="large-1 small-2 columns"><input type="submit" class="button success" id="onbtn" value="ON" /></div>
-	<div class="large-1 small-2 columns"><input type="submit" class="button alert" id="offbtn" value="OFF" /></div>
-	<div class="large-2 small-2 columns"><label class="text-right middle"><?php= $row["dstatus"] ?></label></div>
+	<div class="large-1 small-2 columns"><input id="onbtn" type="submit" class="button success" value="ON" /></div>
+	<div class="large-1 small-2 columns"><input id="offbtn" type="submit" class="button alert" value="OFF" /></div>
+	<div class="large-2 small-2 columns"><label id="status" class="text-right middle"><?php echo $row["dstatus"]; ?></label></div>
 	<div class="large-5 small-2 columns"></div>
 </div>
 
@@ -63,26 +69,29 @@ $conn->close();
 	<script src="../js/wow.min.js"></script>
 	<script src="../js/modernizr.js"></script>
 	<script type = "text/javascript" language = "javascript">
-         $(document).ready(function() {		
-            $("#onbtn").click(function(event){
-               $.post( 
-                  "update.php",
-                  { name: <?php= $dname ?>, up="on" },
-                  function(data) {
-                     //$('#stage').html(data);
-                  }
-               );				
-            });			
-            $("#offbtn").click(function(event){
-               $.post( 
-                  "update.php",
-                  { name: <?php= $dname ?>, up="off" },
-                  function(data) {
-                     //$('#stage').html(data);
-                  }
-               );				
-            });			
-         });
+	$(document).ready(function() {
+		$("#respmsg").css("visibility", "hidden");
+		name = $("#did big b").html();
+//		alert(name);
+
+		$("#onbtn").click(function(e){
+			e.preventDefault();
+			$.post("update.php", { name: name, up:"on" }, function(data) {
+				//$('#stage').html(data);
+				$('#status').html(data);
+				$("#respmsg").html(name + " is successfully on.");
+				$("#respmsg").css("visibility", "visible");
+			});
+		});
+		$("#offbtn").click(function(e){
+			e.preventDefault();
+			$.post("update.php", { name: name, up:"off" }, function(data) {
+				$('#status').html(data);
+				$("#respmsg").html(name + " is successfully off.");
+				$("#respmsg").css("visibility", "visible");
+			});
+		});
+	});
       </script>
 </body>
 </html>

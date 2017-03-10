@@ -16,7 +16,7 @@ $password = $mysqli->escape_string(password_hash($_POST['password'], PASSWORD_BC
 $hash = $mysqli->escape_string( md5( rand(0,1000) ) );
       
 // Check if user with that email already exists
-$result = $mysqli->query("SELECT * FROM users WHERE email='$email'") or die($mysqli->error());
+$result = $mysqli->query("SELECT * FROM minusers WHERE email='$email'") or die($mysqli->error());
 
 // We know user email exists if the rows returned are more than 0
 if ( $result->num_rows > 0 ) {
@@ -28,7 +28,7 @@ if ( $result->num_rows > 0 ) {
 else { // Email doesn't already exist in a database, proceed...
 
     // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO users (first_name, last_name, email, password, hash) " 
+    $sql = "INSERT INTO minusers (first_name, last_name, email, password, hash) " 
             . "VALUES ('$first_name','$last_name','$email','$password', '$hash')";
 
     // Add user to the database

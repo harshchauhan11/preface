@@ -1,7 +1,6 @@
 <?php
-/* User login process, checks if user exists and password is correct */
-
-// Escape email to protect against SQL injections
+ob_start();
+require_once 'passwordLib.php';
 $email = $mysqli->escape_string($_POST['email']);
 $result = $mysqli->query("SELECT * FROM minusers WHERE email='$email'");
 

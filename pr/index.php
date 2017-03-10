@@ -1,5 +1,5 @@
 <?php 
-/* Main page with two forms: sign up and log in */
+ob_start();
 require 'db.php';
 session_start();
 ?>
@@ -7,7 +7,7 @@ session_start();
 <html>
 <head>
   <title>Sign-Up/Login Form</title>
-  <?php include 'css/css.html'; ?>
+<?php include 'css/css.html'; ?>
 </head>
 
 <?php 

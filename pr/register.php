@@ -1,7 +1,14 @@
 <?php
+require_once 'passwordLib.php';
 /* Registration process, inserts user info into the database 
    and sends account confirmation email message
  */
+function generateHash($password) {
+    if (defined("CRYPT_BLOWFISH") && CRYPT_BLOWFISH) {
+        $salt = '$2y$11$' . substr(md5(uniqid(rand(), true)), 0, 22);
+        return crypt($password, $salt);
+    }
+}
 
 // Set session variables to be used on profile.php page
 $_SESSION['email'] = $_POST['email'];
@@ -13,6 +20,7 @@ $first_name = $mysqli->escape_string($_POST['firstname']);
 $last_name = $mysqli->escape_string($_POST['lastname']);
 $email = $mysqli->escape_string($_POST['email']);
 $password = $mysqli->escape_string(password_hash($_POST['password'], PASSWORD_BCRYPT));
+//$password = $mysqli->escape_string(generateHash($_POST['password']));
 $hash = $mysqli->escape_string( md5( rand(0,1000) ) );
       
 // Check if user with that email already exists
@@ -42,8 +50,12 @@ else { // Email doesn't already exist in a database, proceed...
                  your account by clicking on the link in the message!";
 
         // Send registration confirmation link (verify.php)
+        $headers =  'MIME-Version: 1.0' . "\r\n"; 
+        $headers .= 'From: Your name <info@prefacepro.com>' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+        
         $to      = $email;
-        $subject = 'Account Verification ( clevertechie.com )';
+        $subject = 'Minnie - Account Verification';
         $message_body = '
         Hello '.$first_name.',
 
@@ -51,9 +63,9 @@ else { // Email doesn't already exist in a database, proceed...
 
         Please click this link to activate your account:
 
-        http://localhost/login-system/verify.php?email='.$email.'&hash='.$hash;  
+        http://preface-prhc.rhcloud.com/pr/verify.php?email='.$email.'&hash='.$hash;  
 
-        mail( $to, $subject, $message_body );
+        mail( $to, $subject, $message_body, $headers );
 
         header("location: profile.php"); 
 

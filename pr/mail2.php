@@ -6,11 +6,11 @@ $mail             = new PHPMailer(); // defaults to using php "mail()"
 $body             = file_get_contents('contents.html');
 $body             = eregi_replace("[\]",'',$body);
 
-$mail->AddReplyTo("info@prefacepro.com","Admin");
+$mail->AddReplyTo("henkclouse@gmail.com","Admin");
 
-$mail->SetFrom('info@prefacepro.com', 'Admin');
+$mail->SetFrom('henkclouse@gmail.com', 'Admin');
 
-$mail->AddReplyTo("info@prefacepro.com","Admin");
+$mail->AddReplyTo("henkclouse@gmail.com","Admin");
 
 $address = "harsh.h.chauhan@gmail.com";
 $mail->AddAddress($address, "Harsh Chauhan");

@@ -14,7 +14,8 @@ $message = '
 $type = 'html'; // or HTML
 $charset = 'utf-8';
 
-$mail     = 'no-reply@'.str_replace('www.', '', $_SERVER['SERVER_NAME']);
+//$mail     = 'no-reply@'.str_replace('www.', '', $_SERVER['SERVER_NAME']);
+$mail     = 'info@prefacepro.com';
 $uniqid   = md5(uniqid(time()));
 $headers  = 'From: '.$mail."\n";
 $headers .= 'Reply-to: '.$mail."\n";

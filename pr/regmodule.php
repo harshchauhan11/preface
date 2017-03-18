@@ -75,7 +75,7 @@ else { // Email doesn't already exist in a database, proceed...
     }
 
     else {
-        $_SESSION['message'] = 'Registration failed! ' . $mapid.','.$mname.','.$mposition.','.$mpins.','.$mnear;;
+        $_SESSION['message'] = 'Registration failed! ' . $mapid.','.$mname.','.$mposition.','.$mpins.','.$mnear.'<br/>' . $mysqli->error;
         header("location: error.php");
     }
 }

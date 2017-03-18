@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en">
+<html class="no-js" lang="en">
 <head>
 	<title>Minnie</title>
 	<meta charset="utf-8">

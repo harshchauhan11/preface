@@ -46,6 +46,7 @@ else {
           <?php
           
           // Keep reminding the user this account is not active, until they activate
+            /*
           if ( !$active ){
               echo
               '<div class="info">
@@ -53,6 +54,7 @@ else {
               on the email link!
               </div>';
           }
+          */
           
           ?>
           

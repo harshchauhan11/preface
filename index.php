@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
-<html class="no-js" lang="en">
+<html class="no-js" lang="en">
 <head>
 	<title>PReFace - A Part Of PRevolt</title>
 	<meta charset="utf-8">
@@ -476,7 +476,7 @@
 	<div class="column large-12 text-center container">
 			<div class="details column_nonpad large-12 wow fadeIn" data-wow-duration=".5s" data-wow-delay=".2s">
 				<div class="phone-info">
-					<h1><i class="fa fa-bolt"></i><br>info@preface.in</h1>
+					<h1><i class="fa fa-bolt"></i><br>info@prefacepro.com</h1>
 				</div>
 				<div class="column large-12">
 					<h3><small class="highlight2">Let's create Awesomeness !</small><span class="highlight"></span></h3>

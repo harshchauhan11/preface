@@ -3,45 +3,46 @@ require 'db.php';
 session_start();
 //require_once 'passwordLib.php';
 // Set session variables to be used on profile.php page
-$_SESSION['email'] = $_POST['email'];
-$_SESSION['first_name'] = $_POST['firstname'];
-$_SESSION['last_name'] = $_POST['lastname'];
+//$_SESSION['email'] = $_POST['email'];
+//$_SESSION['first_name'] = $_POST['firstname'];
+//$_SESSION['last_name'] = $_POST['lastname'];
 
 // Escape all $_POST variables to protect against SQL injections
 $uid = $_SESSION['uid'];
-$mname = $mysqli->escape_string($_POST['modname']);
 $mapid = $mysqli->escape_string($_POST['mapid']);
-$dname = $mysqli->escape_string($_POST['dname']);
-$dpin = $mysqli->escape_string($_POST['dpinh']);
-$dtype = $mysqli->escape_string($_POST['dtype']);
+$mname = $mysqli->escape_string($_POST['mname']);
+$mposition = $mysqli->escape_string($_POST['mposition']);
+$mpins = $mysqli->escape_string($_POST['mpins']);
 //$password = $mysqli->escape_string(generateHash($_POST['password']));
-$dstatus = $mysqli->escape_string($_POST['dstatus']);
+$mnear = $mysqli->escape_string($_POST['mnear']);
   
-//echo $mapid.','.$dname.','.$dpin.','.$dtype.','.$dstatus;
+//echo $mapid.','.$mname.','.$mposition.','.$mpins.','.$mnear;
 
 // Check if user with that email already exists
-$result = $mysqli->query("SELECT * FROM mindevices WHERE dpin='$mapid'") or die($mysqli->error());
+$result = $mysqli->query("SELECT * FROM minmodules WHERE mapid='$mapid' OR mname='$mname'") or die($mysqli->error());
 
 // We know user email exists if the rows returned are more than 0
 if ( $result->num_rows > 0 ) {
     
-    $_SESSION['message'] = 'Device already registered on pin number '.$dpin.' on module '.$mapid.' !';
+    $_SESSION['message'] = 'Module with the same ID/Name already exists!';
     header("location: error.php");
     
 }
 else { // Email doesn't already exist in a database, proceed...
 
     // active is 0 by DEFAULT (no need to include it here)
-    $sql = "INSERT INTO mindevices (mapdid, dname, dtype, dpin, dstatus) " 
-            . "VALUES ('$mapid','$dname','$dtype','$dpin','$dstatus')";
+    $sql = "INSERT INTO minmodules (minumid, mapid, mname, mposition, mpins, mnear) " 
+            . "VALUES ('$uid','$mapid','$mname','$mposition','$mpins', '$mnear')";
 
     // Add user to the database
     if ( $mysqli->query($sql) ){
 
-        $_SESSION['acktitle'] = 'Device Registered !';
-        $_SESSION['ackmsg'] = '<p><span class="line">Device Name: <b class="golden">'.$dname.'</b></span> <span class="line">on Module Name: <b class="golden">'.$mname.'</b></span><br/>has been registered successfully.<br/><a href="register_device.php"><u>Register Another</u></a> or Goto <a href="profile.php"><u>Profile</u></a>.</p>';
-        //$_SESSION['ackmsg'] = 'Device Name: <b>'.$dname.'</b> on Module Name: <b>'.$mname.'</b><br/>has been registered successfully. <a href="register_device.php">Register another</a>';
+        //echo 'Module ID: <b>'.$mapid.'</b> Registered Successfully !';
+        $_SESSION['acktitle'] = 'Module Registered !';
+        $_SESSION['ackmsg'] = '<span class="line">Module Name: <b class="golden">'.$mname.'</b></span> <span class="line">with ID: <b class="golden">'.$mapid.'</b></span><br/><span class="line">has been registered successfully.</span><br/><span class="line"><a href="register_module.php"><u>Register Another</u></a> or <a href="register_device.php"><u>Add Devices</u></a> </span><span class="line">or Goto <a href="profile.php"><u>Profile</u></a>.</p>';
+        //$_SESSION['ackmsg'] = 'Module Name: <b>'.$mname.'</b> with ID: <b>'.$mapid.'</b><br/>has been registered successfully. <a href="register_device.php">Register Another</a>';
         header("location: ack.php");
+
         /*
         $_SESSION['active'] = 0; //0 until user activates their account with verify.php
         $_SESSION['logged_in'] = true; // So we know the user has logged in

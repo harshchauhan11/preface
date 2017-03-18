@@ -12,7 +12,7 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !
     $hash = $mysqli->escape_string($_GET['hash']); 
     
     // Select user with matching email and hash, who hasn't verified their account yet (active = 0)
-    $result = $mysqli->query("SELECT * FROM minusers WHERE email='$email' AND hash='$hash' AND active='0'");
+    $result = $mysqli->query("SELECT * FROM users WHERE email='$email' AND hash='$hash' AND active='0'");
 
     if ( $result->num_rows == 0 )
     { 
@@ -24,7 +24,7 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && !
         $_SESSION['message'] = "Your account has been activated!";
         
         // Set the user status to active (active = 1)
-        $mysqli->query("UPDATE minusers SET active='1' WHERE email='$email'") or die($mysqli->error);
+        $mysqli->query("UPDATE users SET active='1' WHERE email='$email'") or die($mysqli->error);
         $_SESSION['active'] = 1;
         
         header("location: success.php");

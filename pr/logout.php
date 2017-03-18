@@ -8,7 +8,7 @@ session_destroy();
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Error</title>
+  <title>Thanks</title>
   <?php include 'css/css.html'; ?>
 </head>
 

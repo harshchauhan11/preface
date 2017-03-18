@@ -7,7 +7,7 @@ session_start();
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) 
 {   
     $email = $mysqli->escape_string($_POST['email']);
-    $result = $mysqli->query("SELECT * FROM minusers WHERE email='$email'");
+    $result = $mysqli->query("SELECT * FROM users WHERE email='$email'");
 
     if ( $result->num_rows == 0 ) // User doesn't exist
     { 

@@ -2,11 +2,17 @@
 ob_start();
 require 'db.php';
 session_start();
+
+if ( $_SESSION['logged_in'] == 1 ) {
+  //$_SESSION['message'] = "You must log in before viewing your profile page!";
+  header("location: profile.php");
+}
+else {
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sign-Up/Login Form</title>
+  <title>Minnie Dashboard</title>
 <?php include 'css/css.html'; ?>
 </head>
 
@@ -39,13 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
          <div id="login">   
           <h1>Welcome Back!</h1>
           
-          <form action="index.php" method="post" autocomplete="off">
+          <form action="index.php" method="post" autocomplete="on">
           
             <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email" required autocomplete="off" name="email"/>
+            <input type="email" required autocomplete="on" name="email"/>
           </div>
           
           <div class="field-wrap">
@@ -66,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="index.php" method="post" autocomplete="off">
+          <form action="index.php" method="post" autocomplete="on">
           
           <div class="top-row">
             <div class="field-wrap">
@@ -88,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off" name='email' />
+            <input type="email"required autocomplete="on" name='email' />
           </div>
           
           <div class="field-wrap">
@@ -113,3 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 </body>
 </html>
+<?php
+}
+?>

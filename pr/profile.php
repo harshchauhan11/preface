@@ -76,11 +76,11 @@ else {
         <div class="column large-12 small-12">
         <div class="modules">
             <div class="row wifititle">
-                <div class="column large-6 small-12 entitle large-text-left">
+                <div class="column large-5 small-12 entitle large-text-left">
                     <span>WiFi Modules: </span>
                 </div>
-                <div class="column large-6 small-12 large-text-right">
-                    <a class="button button2 pink" href="register_module.php">Register New</a>
+                <div class="column large-7 small-12 large-text-right">
+                    <a class="button button2 pink" href="register_module.php">Register New</a><a class="button button2 pink" href="editmodule.php">Edit</a>
                     <!-- a class="button button2 pink" href="#" id="edit">Edit</a -->
                 </div>
             </div>
@@ -155,14 +155,14 @@ else {
                           <a href="#" class="editdonebtn"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
                       </div>
                       <div class="small-8 large-4 columns">
-                          <button type="button" class="button button2 success">ON</button>
-                          <button type="button" class="button button2 alert">OFF</button>
+                          <button type="button" class="onbtn button button2 success">ON</button>
+                          <button type="button" class="offbtn button button2 alert">OFF</button>
                       </div>
                       <div class="small-4 large-2 columns text-right">
                           <a href="#" class="editbtn"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" data-open="deldevice" class="delbtn"><i class="fa fa-trash" aria-hidden="true"></i></a>
                       </div>
-                      <div class="small-12 large-12 columns text-right">
-                          <p>STATUS: <strong class="status"><?php echo $dstatus; ?></strong> | Last updated: <strong>12 Mar, 8 PM</strong></p>
+                      <div class="small-12 large-12 columns">
+                          <p>STATUS: <strong class="status"><?php echo $dstatus; ?></strong> <img class="bulb" src="<?php if($dstatus == 'on') echo 'img/bon.png'; else if($dstatus == 'off') echo 'img/boff.png'; ?>" width="14px" /><!-- | Last updated: <strong>12 Mar, 8 PM </strong --></p>
                       </div>
 
                     </div>
@@ -302,6 +302,26 @@ else {
             //    $(".divider").find("span.excl").parent().parent().parent().append("<div class='row litem accordion-content accord_con text-center' data-tab-content><div class='column large-12 small-12'>Add Remaining Devices <a class='button button2' href='register_device.php'>ADD</a></div></div>");
             //}
             
+            $(".bulb").hover(function (e) {
+                $(this).attr("src","img/bon.png");
+            }, function (e) {
+                $(this).attr("src","img/boff.png");
+            });
+            $(".onbtn, .offbtn").click(function (e) {
+                e.preventDefault();
+                $pdname = $(this).parent().parent().find("input").val();
+                $pmapid = $(this).parent().parent().parent().find("input.pmapid").val();
+                $pdpin = $(this).parent().parent().find("input.pdpin").val();
+                //alert($pdname + ", " + $pmapid + ", " + $pdpin);
+                if($(this).hasClass("onbtn"))
+                    $pdstatus = "on";
+                else if($(this).hasClass("offbtn"))
+                    $pdstatus = "off";
+
+                $.get("update.php", { pdname:$pdname, pmapid:$pmapid, pdpin:$pdpin, pdstatus:$pdstatus }, function(data){
+                    location.reload(true);
+                });
+            });
             $(".editbtn").click(function (e) {
                 e.preventDefault();
                 $(this).parent().parent().find("input").removeAttr("disabled").addClass("linput_edit").focus();

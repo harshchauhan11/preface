@@ -20,7 +20,7 @@ $dstatus = $mysqli->escape_string($_POST['dstatus']);
 //echo $mapid.','.$dname.','.$dpin.','.$dtype.','.$dstatus;
 
 // Check if user with that email already exists
-$result = $mysqli->query("SELECT * FROM mindevices WHERE dpin='$mapid'") or die($mysqli->error());
+$result = $mysqli->query("SELECT * FROM mindevices WHERE mapdid='$mapid' AND dpin='$dpin'") or die($mysqli->error());
 
 // We know user email exists if the rows returned are more than 0
 if ( $result->num_rows > 0 ) {

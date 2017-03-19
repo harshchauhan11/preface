@@ -1,28 +1,19 @@
 <?php
-//        echo(json_encode(array('outcome' => true, 'message' => 'Success')));
-$dname = $_POST["name"];
-$dstatus = $_POST["up"];
-if($dstatus == "on")
-	$dstatus2 = "off";
-else
-	$dstatus2 = "on";
+require 'db.php';
+session_start();
+$mapid = $_GET['pmapid'];
+$dname = $_GET['pdname'];
+$dpin = $_GET['pdpin'];
+$dstatus = $_GET['pdstatus'];
 
-$servername = "localhost";
-$username = "admine8NgaEg";
-$password = "P5vVcfKb4Ixz";
-$dbname = "preface";
+$result = $mysqli->query("UPDATE mindevices SET dstatus='$dstatus' WHERE mapdid='$mapid' AND dpin='$dpin'");
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-$sql = "UPDATE devices SET dstatus='" . $dstatus . "' WHERE dname='" . $dname . "'";
-
-if ($conn->query($sql) === TRUE) {
-    echo $dstatus;
+//echo $mysqli->affected_rows;
+if ($mysqli->affected_rows != 0) {
+    echo 1;
 } else {
-    echo $dstatus2;
+    echo 0;
 }
-$conn->close();
+
 ?>
+

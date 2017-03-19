@@ -50,8 +50,9 @@ else {
       </div>
       
   <div class="row">
-    <div class="small-12 large-12 columns text-center">
-      <h1>Register WiFi Module</h1><br/>
+    <div class="small-10 large-9 columns large-centered small-centered text-center">
+      <h1>Register WiFi Module</h1>
+        <small class="note">( <strong>Note</strong>: Module ID is unique hardware specific ID. It can not be modified after registration. You have to re-register whole module. )</small><br/><br/>
     </div>
   </div>
   <div class="row">

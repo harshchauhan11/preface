@@ -13,8 +13,8 @@ $result1 = $mysqli->query("SELECT * FROM mindevices WHERE mapdid=(SELECT mapid F
 /* (device + module) successfully found for this user. */
 if ( $result1->num_rows > 0 ) {
     while($row1 = $result1->fetch_assoc()) {
-        $mapid = row1["mapdid"];
-        $dpin = row1["dpin"];
+        $mapid = $row1["mapdid"];
+        $dpin = $row1["dpin"];
         
         $result2 = $mysqli->query("UPDATE mindevices SET dstatus='$dstatus' WHERE mapdid='$mapid' AND dpin=$dpin");
         if ($mysqli->affected_rows != 0) {

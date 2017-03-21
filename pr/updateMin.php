@@ -1,6 +1,6 @@
 <?php
 require 'db.php';
-session_start();
+//session_start();
 //$mapid = $_GET['pmapid'];
 $uid = $_GET['uid'];
 $mapid = '';

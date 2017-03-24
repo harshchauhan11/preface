@@ -25,7 +25,7 @@ if(isset($_GET['pmname'])) {
             $update_bymod = $mysqli->query("UPDATE mindevices SET dstatus='$dstatus' WHERE mapdid='$mapid' AND dpin=$dpin");
             if ($mysqli->affected_rows != 0) {
                 /* successfully updated by module name */
-                echo(json_encode(array('response' => '1', 'message' => 'Turning ' + $dname + ' ' + $dstatus + ' !')));
+                echo(json_encode(array('response' => '1', 'message' => 'Turning '.$dname.' '.$dstatus.' !')));
             } else {
                 /* not updated by module name */
                 echo(json_encode(array('response' => '0', 'message' => 'Something went wrong ! Let me check it.')));
@@ -54,7 +54,7 @@ if(isset($_GET['pmname'])) {
             $update_bypos = $mysqli->query("UPDATE mindevices SET dstatus='$dstatus' WHERE mapdid='$mapid' AND dpin=$dpin");
             if ($mysqli->affected_rows != 0) {
                 /* successfully updated by module position only */
-                echo(json_encode(array('response' => '1', 'message' => 'Turning ' + $dname + ' ' + $dstatus + ' !')));
+                echo(json_encode(array('response' => '1', 'message' => 'Turning '.$dname.' '.$dstatus.' !')));
             } else {
                 /* not updated by module position */
                 echo(json_encode(array('response' => '0', 'message' => 'Something went wrong ! Let me check it.')));

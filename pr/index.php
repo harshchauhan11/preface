@@ -119,6 +119,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <!-- normal script imports etc  -->
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="js/index.js"></script>
+    <script>
+        var inBrowser = true;
+        if(window && window.process && window.process.type){
+            var electron = require('electron')
+            inBrowser = false;
+            
+            alert("In Electron !");
+        } else {
+            alert("In Chrome !");
+        }
+    </script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
 

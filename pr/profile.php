@@ -286,6 +286,9 @@ else {
 </div></div></div></div>
     
 	
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <!-- normal script imports etc  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation.js"></script>
     <script>
@@ -472,6 +475,9 @@ else {
 <script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.motion.min.js'></script>
 <!--script type="application/javascript" src='js/pre.js'></script-->
 <!--script type="application/javascript" src="js/index.js"></script -->
+    
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
 
 
 </body>

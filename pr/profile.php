@@ -74,7 +74,106 @@ else {
             </p>
         </div>
         <div class="column large-12 small-12">
-        <div class="modules">
+        <div class="modules" id="comps">
+            <div class="row wifititle">
+                <div class="column large-5 small-12 entitle large-text-left">
+                    <span>Computers: </span>
+                </div>
+                <div class="column large-7 small-12 large-text-right">
+                    <a class="button button2 pink" href="register_computer.php">Register New</a><a class="button button2 pink" href="editmodule.php">Edit</a>
+                    <!-- a class="button button2 pink" href="#" id="edit">Edit</a -->
+                </div>
+            </div>
+            <ul class="row accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true" id="accordbox">
+                        <?php
+                        $result_modules = $mysqli->query("SELECT * FROM mincomputers WHERE minucid='$uid'") or die($mysqli->error);
+
+                        if ( $result_modules->num_rows > 0 ) {
+                            $count = 0;
+                            $rfpins = 0;
+                            while($row_modules = $result_modules->fetch_assoc()) {
+                                $pcid = $row_modules["pcid"];
+                                $pcname = $row_modules["pcname"];
+                                $pcos = $row_modules["pcos"];
+                                $pcarch = $row_modules["pcarch"];
+                                if($count == 0) {
+                    ?>
+                <li class="column large-12 accordion-item" data-accordion-item>
+                    <a href="#" class="row accordion-title accord fd divider">
+                    <?php
+                                } else {
+                    ?>
+                <li class="column large-12 accordion-item" data-accordion-item>
+                    <a href="#" class="row accordion-title accord divider">
+                    <?php
+                                }
+                    ?>
+
+                      <div class="small-7 large-9 columns">
+                          <?php echo $pcname; ?><input type="hidden" class="ppcid" name="ppcid" value="<?php echo $pcid; ?>">
+                          <small style="letter-spacing: 2px;">( <span class="line"><strong style="color:#1ab188"><?php echo $pcid; ?></strong></span> :: <span class="line"><?php echo $pcos; ?></span> :: <span class="line"><?php echo $pcarch; ?></span> )</small>
+                      </div>
+                    </a>
+                        <?php
+                                $result_devices = $mysqli->query("SELECT * FROM mincapps WHERE pcaid='$pcid'") or die($mysqli->error());
+
+                                if ( $result_devices->num_rows > 0 ) {
+                                    while($row_devices = $result_devices->fetch_assoc()) {
+                                        $aname = $row_devices["aname"];
+                                        $apath = $row_devices["apath"];
+                                        $astatus = $row_devices["astatus"];
+                        ?>
+
+                    <div class="row litem accordion-content accord_con" data-tab-content>
+
+                      <div class="small-7 large-9 columns">
+                          <input type="text" class="linput" value="<?php echo $aname; ?>" disabled />
+                      </div>
+                      <div class="small-1 large-1 columns">
+                          <a href="#" class="editdonebtn"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                      </div>
+                      <div class="small-4 large-2 columns text-right">
+                          <a href="#" class="editbtn"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" data-open="deldevice" class="delbtn"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      </div>
+                        <div class="small-12 large-12 columns">
+                          <p class="capitalize"><?php echo $apath; ?></p>
+                      </div>
+                      <div class="small-12 large-12 columns">
+                          <p>STATUS: <strong class="status"><?php echo $astatus; ?></strong></p>
+                      </div>
+
+                    </div>
+                        <?php
+                                    }
+                                    //if($rfpins != 0) {
+                        ?>
+                    <div class="row litem accordion-content accord_con" data-tab-content>
+                        <div class="column large-12 small-12 text-center capitalize">Add Applications To <b><?php echo $pcname; ?> :</b><a class="button button2" href="register_app.php">Add Application</a></div>
+                    </div>
+                        <?php
+                                        
+                                    //}
+                                } else {
+                        ?>
+                    <div class="row litem accordion-content accord_con" data-tab-content>
+                        <div class="column large-12 small-12 text-center capitalize">You haven't added any Application on this computer. <a class="button button2" href="register_app.php">ADD APPLICATION</a></div>
+                    </div>
+                        <?php
+                                }
+                        ?>
+                </li>
+                    <?php
+                                    $count = $count + 1;
+                                }
+                        }
+                    ?>
+            </ul>
+            <div class="row accord_ld ld"></div>
+        </div>
+            
+            
+
+        <div class="modules" id="mods">
             <div class="row wifititle">
                 <div class="column large-5 small-12 entitle large-text-left">
                     <span>WiFi Modules: </span>
@@ -84,7 +183,7 @@ else {
                     <!-- a class="button button2 pink" href="#" id="edit">Edit</a -->
                 </div>
             </div>
-            <ul class="row accordion" data-accordion data-multi-expand="true" id="accordbox">
+            <ul class="row accordion" data-accordion data-multi-expand="true" data-allow-all-closed="true" id="accordbox">
                         <?php
                         $result_modules = $mysqli->query("SELECT * FROM minmodules WHERE minumid='$uid'") or die($mysqli->error);
 
@@ -99,7 +198,7 @@ else {
                                 $mnear = $row_modules["mnear"];
                                 if($count == 0) {
                     ?>
-                <li class="column large-12 accordion-item is-active" data-accordion-item>
+                <li class="column large-12 accordion-item" data-accordion-item>
                     <a href="#" class="row accordion-title accord fd divider">
                     <?php
                                 } else {
@@ -285,19 +384,151 @@ else {
 </div>
 </div></div></div></div>
     
-	
+
     <!-- Insert this line above script imports  -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <!-- normal script imports etc  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation.js"></script>
     <script>
+        var reqFun = function() {
+            var request = require('request');
+            var app = null;
+
+            // Set the headers
+            var headers = {
+                'User-Agent':       'Super Agent/0.0.1',
+                'Content-Type':     'application/x-www-form-urlencoded'
+            }
+
+            // Configure the request
+            var options = {
+                url: 'http://preface-prhc.rhcloud.com/pr/getstatus.php',
+                method: 'GET',
+                json: true,
+                headers: headers,
+                qs: {'mid': 'MinThings_CF6A'}
+            }
+
+            var options2 = {
+                url: 'http://preface-prhc.rhcloud.com/pr/updateMin2.php',
+                method: 'GET',
+                json: true,
+                headers: headers,
+                qs: {'uid': '1', 'pdname': '', 'pdstatus': 'off', 'pmpos': 'bedroom'}
+            }
+
+            var requestLoop = setInterval(function(){
+            // Start the request
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    // Print out the response body
+                    for(var i=0; i<body.length; i++) {
+                        if(body[i]['dstatus'] == "on") {
+                            app = body[i]['dname'];
+                            options2['qs']['pdname'] = app;
+                            console.log(body[i]['dstatus'] + ", notepad, " + options2['qs']['pdname']);
+                        } else {
+                            console.log(body[i]['dstatus']);
+                        }
+                    }
+                    if(app == "led1") {
+                        var cp = require('child_process');
+                        var child = cp.spawn('C:\\windows\\notepad.exe', '', { detached: true, stdio: [ 'ignore', 'ignore', 'ignore' ] });
+                        child.unref();
+
+                        request(options2, function (error, response, body) {
+                            if (!error && response.statusCode == 200) {
+
+                            }
+                        });
+                        app = null;
+                    }
+
+                    //console.log(body.length);
+                }
+            });
+            }, 5000);
+        };
+        var inBrowser = true;
+        if(window && window.process && window.process.type){
+            var electron = require('electron')
+            inBrowser = false;
+            
+            $("#mods").hide();
+            //reqFun();
+        } else {
+            $("#comps").hide();
+        }
+
         $(document).foundation();
         var closealert = function() {
             $('#alertbox').foundation('close');
             location.reload(true);
         };
         $(document).ready(function () {
+            
+           var requestLoop = setInterval(function(){
+               $.get("http://preface-prhc.rhcloud.com/pr/getstatus.php", { mid: 'MinThings_CF6A' }, function(data){
+                    //location.reload(true);
+                   console.log(data);
+                });
+           }, 5000);
+            /*
+            var fork = require('child_process').fork;
+            var child = fork('js/req.js', [], {
+                stdio: 'pipe'
+            });
+            */
+            
+            /*
+            var spawn = require('child_process').spawn,
+                child    = spawn('js/req.js');
+
+            child.stdout.on('data', function (data) {
+              console.log('stdout: ' + data);
+            });
+
+            child.stderr.on('data', function (data) {
+              console.log('stderr: ' + data);
+            });
+
+            child.on('close', function (code) {
+              console.log('child process exited with code ' + code);
+            });
+            */
+            
+            /*
+            var childProcess = require('child_process');
+            function runScript(scriptPath, callback) {
+                // keep track of whether callback has been invoked to prevent multiple invocations
+                var invoked = false;
+                var process = childProcess.fork(scriptPath);
+
+                process.on('data', function (data) {
+                    callback(data);
+                });
+                // listen for errors as they may prevent the exit event from firing
+                process.on('error', function (err) {
+                    if (invoked) return;
+                    invoked = true;
+                    callback(err);
+                });
+                // execute the callback once the process has finished running
+                process.on('exit', function (code) {
+                    if (invoked) return;
+                    invoked = true;
+                    var err = code === 0 ? null : new Error('exit code ' + code);
+                    callback(err);
+                });
+            }
+            // Now we can run a script and invoke a callback when complete, e.g.
+            runScript('req.js', function (err) {
+                if (err) throw err;
+                console.log('finished running some-script.js');
+            });
+            */
+            
             //alert(2);
             //$('.callout').closest('[data-closable]').fadeOut(3500);
             //if($(".divider").find("span.excl")) {
@@ -471,11 +702,15 @@ else {
 
 <script type="application/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 <script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.accordion.min.js'></script>
+<script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.tooltip.min.js'></script>
+<script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.mediaQuery.min.js'></script>
+<script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.box.min.js'></script>
+<script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.triggers.min.js'></script>
+
 <script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.keyboard.min.js'></script>
 <script type="application/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/plugins/foundation.util.motion.min.js'></script>
 <!--script type="application/javascript" src='js/pre.js'></script-->
 <!--script type="application/javascript" src="js/index.js"></script -->
-    
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
 

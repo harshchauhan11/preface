@@ -1,4 +1,5 @@
 	$(document).ready(function() {
+        
         $("#mapid").change(function(){
             $mid = $(this).val();
             $name = $("#mapid option:selected").text();
@@ -23,5 +24,16 @@
             } else {
                 alert("Sorry this module has already registered devices.\nPlease choose your other module.");
             }
+        });
+        $("#registerc").click(function(e) {
+            e.preventDefault();
+            if(($("#pcidh").val() != 0) && ($("#pcosh").val() != 0) && $("#pcarchh").val() != 0) {
+                $("form").submit();
+            }
+        });
+        $("#pcid").change(function(){
+            $pid = $(this).val();
+            $pcname = $("#pcid option:selected").text();
+            $("#modname").val($pcname);
         });
     });
